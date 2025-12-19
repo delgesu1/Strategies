@@ -120,12 +120,18 @@ const getRandomQuote = (currentQuote = null) => {
   return newQuote;
 };
 
+const backgrounds = [
+  '/black-paper.jpeg',
+  '/black-paper2.jpeg'
+];
+
 export default function App() {
   const [quote, setQuote] = useState(() => getRandomQuote());
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [isThinking, setIsThinking] = useState(false);
   const [isExiting, setIsExiting] = useState(false);
   const [displayQuote, setDisplayQuote] = useState(quote);
+  const [backgroundIndex, setBackgroundIndex] = useState(0);
 
   const handleNewQuote = useCallback(() => {
     if (isTransitioning) return;
@@ -142,12 +148,13 @@ export default function App() {
       setIsExiting(true);
     }, thinkingTime);
 
-    // Change the quote after exit animation completes
+    // Change the quote and background after exit animation completes
     setTimeout(() => {
       const newQuote = getRandomQuote(quote);
       setQuote(newQuote);
       setDisplayQuote(newQuote);
       setIsExiting(false);
+      setBackgroundIndex(prev => (prev + 1) % 2);
     }, thinkingTime + 500);
 
     // Allow new clicks after enter animation completes
@@ -178,10 +185,28 @@ export default function App() {
       WebkitUserSelect: 'none',
     }}>
       {/* Google Fonts */}
-      <link 
-        href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" 
-        rel="stylesheet" 
+      <link
+        href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet"
       />
+
+      {/* Background images with crossfade */}
+      {backgrounds.map((bg, index) => (
+        <div
+          key={bg}
+          style={{
+            position: 'absolute',
+            inset: 0,
+            backgroundImage: `url(${bg})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat',
+            opacity: backgroundIndex === index ? 1 : 0,
+            transition: 'opacity 0.8s ease-in-out',
+            zIndex: 0,
+          }}
+        />
+      ))}
 
       {/* Subtle grain texture overlay */}
       <div style={{
@@ -190,9 +215,10 @@ export default function App() {
         opacity: 0.4,
         background: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
         pointerEvents: 'none',
-        mixBlendMode: 'overlay'
+        mixBlendMode: 'overlay',
+        zIndex: 1,
       }} />
-      
+
       {/* Ambient glow */}
       <div style={{
         position: 'absolute',
@@ -202,7 +228,8 @@ export default function App() {
         width: '120vw',
         height: '60vh',
         background: 'radial-gradient(ellipse at center, rgba(255,255,255,0.03) 0%, transparent 60%)',
-        pointerEvents: 'none'
+        pointerEvents: 'none',
+        zIndex: 1,
       }} />
       
       {/* Quote */}
@@ -214,7 +241,7 @@ export default function App() {
         width: '100%',
         maxWidth: '900px',
         position: 'relative',
-        zIndex: 1
+        zIndex: 2
       }}>
         <p
           style={{
@@ -260,7 +287,7 @@ export default function App() {
           transition: 'all 0.3s ease',
           opacity: isTransitioning ? 0.3 : 1,
           position: 'relative',
-          zIndex: 1
+          zIndex: 2
         }}
         onMouseEnter={(e) => {
           if (!isTransitioning) {
