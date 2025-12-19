@@ -22,13 +22,9 @@
         padding: 0;
         box-sizing: border-box;
       }
-      html {
+      html, body, #root {
         height: 100%;
-        background: #0C0C0C url('/black-paper.jpeg') center/cover no-repeat fixed;
-      }
-      body, #root {
-        height: 100%;
-        background: transparent;
+        background: #0C0C0C;
         overflow: hidden;
       }
       /* Prevent pull-to-refresh on mobile */
@@ -36,9 +32,9 @@
         overscroll-behavior-y: contain;
       }
     </style>
-  </head>
+    <script type="module" crossorigin src="/assets/index-Dg0yHw0P.js"></script>
+  <link rel="manifest" href="/manifest.webmanifest"><script id="vite-plugin-pwa:register-sw" src="/registerSW.js"></script></head>
   <body>
     <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

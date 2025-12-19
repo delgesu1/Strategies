@@ -167,7 +167,7 @@ export default function App() {
     <div style={{
       minHeight: '100vh',
       minHeight: '100dvh',
-      background: '#0C0C0C',
+      background: 'transparent',
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
