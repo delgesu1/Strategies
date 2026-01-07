@@ -151,6 +151,9 @@ export default function App() {
   const [displayQuote, setDisplayQuote] = useState(quote);
   const [backgroundIndex, setBackgroundIndex] = useState(0);
 
+  // black-paper8.jpg (index 7) is a light background, needs dark text
+  const isDarkText = backgroundIndex === 7;
+
   const handleNewQuote = useCallback(() => {
     if (isTransitioning) return;
 
@@ -265,7 +268,7 @@ export default function App() {
             fontFamily: "'Instrument Serif', Georgia, serif",
             fontSize: 'clamp(1.75rem, 6vw, 3.5rem)',
             lineHeight: 1.4,
-            color: '#E8E4E0',
+            color: isDarkText ? '#1a1a1a' : '#E8E4E0',
             textAlign: 'center',
             fontWeight: 400,
             fontStyle: 'italic',
@@ -289,14 +292,14 @@ export default function App() {
         disabled={isTransitioning}
         style={{
           background: 'transparent',
-          border: '1px solid rgba(255, 255, 255, 0.15)',
+          border: isDarkText ? '1px solid rgba(0, 0, 0, 0.2)' : '1px solid rgba(255, 255, 255, 0.15)',
           borderRadius: '4px',
           padding: '0.75rem 1.25rem',
           marginTop: '2rem',
           marginBottom: '2rem',
           fontSize: '0.75rem',
           fontWeight: 400,
-          color: 'rgba(255, 255, 255, 0.4)',
+          color: isDarkText ? 'rgba(0, 0, 0, 0.5)' : 'rgba(255, 255, 255, 0.4)',
           fontFamily: "'JetBrains Mono', monospace",
           letterSpacing: '0.05em',
           textTransform: 'lowercase',
@@ -308,13 +311,13 @@ export default function App() {
         }}
         onMouseEnter={(e) => {
           if (!isTransitioning) {
-            e.target.style.borderColor = 'rgba(255, 255, 255, 0.35)';
-            e.target.style.color = 'rgba(255, 255, 255, 0.7)';
+            e.target.style.borderColor = isDarkText ? 'rgba(0, 0, 0, 0.4)' : 'rgba(255, 255, 255, 0.35)';
+            e.target.style.color = isDarkText ? 'rgba(0, 0, 0, 0.8)' : 'rgba(255, 255, 255, 0.7)';
           }
         }}
         onMouseLeave={(e) => {
-          e.target.style.borderColor = 'rgba(255, 255, 255, 0.15)';
-          e.target.style.color = 'rgba(255, 255, 255, 0.4)';
+          e.target.style.borderColor = isDarkText ? 'rgba(0, 0, 0, 0.2)' : 'rgba(255, 255, 255, 0.15)';
+          e.target.style.color = isDarkText ? 'rgba(0, 0, 0, 0.5)' : 'rgba(255, 255, 255, 0.4)';
         }}
       >
         <span style={{ visibility: isThinking ? 'hidden' : 'visible' }}>
@@ -336,7 +339,7 @@ export default function App() {
                   width: '4px',
                   height: '4px',
                   borderRadius: '50%',
-                  backgroundColor: 'rgba(255, 255, 255, 0.5)',
+                  backgroundColor: isDarkText ? 'rgba(0, 0, 0, 0.5)' : 'rgba(255, 255, 255, 0.5)',
                   animation: `thinkingDot 1.4s ease-in-out ${i * 0.2}s infinite`,
                 }}
               />
