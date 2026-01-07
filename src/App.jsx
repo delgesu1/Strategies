@@ -305,7 +305,7 @@ export default function App() {
           textTransform: 'lowercase',
           cursor: isTransitioning ? 'default' : 'pointer',
           transition: 'all 0.3s ease',
-          opacity: isTransitioning ? 0.3 : 1,
+          opacity: 1,
           position: 'relative',
           zIndex: 2
         }}
