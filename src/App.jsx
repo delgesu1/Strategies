@@ -135,12 +135,12 @@ const getRandomQuote = (currentQuote = null) => {
 const backgrounds = [
   '/black-paper.jpeg',
   '/black-paper2.jpeg',
-  '/Black Simple Paper (3).jpg',
-  '/Black Simple Paper (6).jpg',
-  '/Black Simple Paper (15).jpg',
-  '/Black Simple Paper (16).jpg',
-  '/Black Paper Texture Background.jpg',
-  '/paper_texture_6.jpg'
+  '/black-paper3.jpg',
+  '/black-paper4.jpg',
+  '/black-paper5.jpg',
+  '/black-paper6.jpg',
+  '/black-paper7.jpg',
+  '/black-paper8.jpg'
 ];
 
 export default function App() {
