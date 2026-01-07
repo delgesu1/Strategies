@@ -109,7 +109,19 @@ const quotes = [
   "Your instrument is already vibrating",
   "Play as if you are struggling to remember a dream you had years ago.",
   "You are tired. Incorporate that.",
-  "Beauty is a distraction"
+  "Beauty is a distraction",
+  "Give one hand the text, the other the subtext",
+  "Play so that the listener guesses wrong",
+  "Find the note you avoid. Put it under a microscope",
+  "Build the whole gesture backward from the Release",
+  "Scandalous bowings",
+  "Make the rests expensive.",
+  "Promote one parameter to dictator",
+  "Perform it at half dynamic. Then half again. Then again. What is left?",
+  "If it's Ugly, can it be Useful?",
+  "Every note has a stubborn personality",
+  "Treat ornaments and vibrato as verbs",
+  "Crescendo means piano"
 ];
 
 const getRandomQuote = (currentQuote = null) => {
@@ -165,7 +177,6 @@ export default function App() {
 
   return (
     <div style={{
-      minHeight: '100vh',
       minHeight: '100dvh',
       background: 'transparent',
       display: 'flex',
@@ -184,12 +195,6 @@ export default function App() {
       userSelect: 'none',
       WebkitUserSelect: 'none',
     }}>
-      {/* Google Fonts */}
-      <link
-        href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap"
-        rel="stylesheet"
-      />
-
       {/* Background images with crossfade */}
       {backgrounds.map((bg, index) => (
         <div
@@ -307,7 +312,7 @@ export default function App() {
         }}
       >
         <span style={{ visibility: isThinking ? 'hidden' : 'visible' }}>
-          new strategy
+          new idea
         </span>
         {isThinking && (
           <div style={{

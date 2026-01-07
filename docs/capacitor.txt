@@ -1,0 +1,294 @@
+
+
+Environment Setup
+Capacitor has three officially supported application targets: Android, iOS, and Web. In order to create applications for all three platforms, you'll need to install all of the following dependencies. If you are not targeting one of the native mobile targets, you can skip the associated section.
+
+Core Requirements
+In order to develop any application with Capacitor, you will need NodeJS 22 or higher installed. You can install Node by using the installer on the Node website, using Volta: a JavaScript tools manager, or installing it with a package manager like homebrew, or Chocolatey.
+
+Once you have installed Node, open your terminal of choice and type in the following command to make sure node is properly installed
+
+node --version
+# v22.21.1
+
+With Node installed, you can get started with creating Progressive Web Applications (PWA) with Capacitor.
+
+iOS Requirements
+To build iOS apps, you will need macOS. While there are solutions like Ionic Appflow that can be used to perform iOS cloud builds if you don't have a Mac, it is highly recommended to have the tools available to you locally in order to properly test your Capacitor application.
+
+In order to develop iOS applications using Capacitor, you will need two additional dependencies:
+
+Xcode
+Xcode Command Line Tools
+Once you've installed the core requirements, as well as Xcode, Xcode Command Line Tools, you'll be able to create both iOS applications and PWAs.
+
+Xcode
+Xcode is Apple's IDE for creating native macOS, iOS, and iPadOS applications. You can install Xcode by using the Apple App Store on your Mac. Capacitor 8 requires a minimum of Xcode 26.0.
+
+Xcode Command Line Tools
+The Xcode command line tools are additional tools not included with the core of Xcode that are required for building and testing your application. Once Xcode has been installed, you can install the Xcode Command Line Tools by running the following command in your terminal:
+
+xcode-select --install
+
+After inputting your password and waiting for a few minutes for the packages to install, you can verify that the tools are installed by running the following command:
+
+xcode-select -p
+# /Applications/Xcode.app/Contents/Developer
+
+Optional dependencies
+The following dependencies are optional for using Capacitor on iOS.
+
+If you need to use CocoaPods as a dependency manager for native iOS packages, then you should install these two package managers:
+
+Homebrew
+CocoaPods
+We recommend using Swift Package Manager (SPM) as the dependency manager for iOS. If you don't need CocoaPods, then you can use SPM and skip the install of those two dependencies.
+
+Homebrew
+Homebrew is a package manager for macOS packages. You need to install it in order to install CocoaPods for both Intel and Apple Silicon Macs.
+
+To install Homebrew, run the following bash command:
+
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+info
+Don't just trust us! This is how brew.sh recommends installing Homebrew.
+
+If you do not want to install Homebrew, alternative, but not recommended, instructions can be found below.
+
+CocoaPods
+CocoaPods was the default iOS dependency manager in Capacitor 7 and earlier. Since Capacitor 8, the default has been replaced with SPM, but you can still use CocoaPods as an alternative if your project needs it, by passing --packagemanager CocoaPods to npx cap add ios command.
+
+You can install CocoaPods by running the following command in your terminal
+
+brew install cocoapods
+
+You can verify that CocoaPods has installed correctly by running the following command.
+
+pod --version
+# 1.12.1
+
+Installing CocoaPods without Homebrew
+You can install CocoaPods directly with Ruby Gem. To install it, you can run the following command.
+
+sudo gem install cocoapods
+
+For running without sudo see CocoaPods sudo-less installation docs
+
+Android Requirements
+In order to develop Android applications using Capacitor, you will need two additional dependencies:
+
+Android Studio
+An Android SDK installation
+note
+You do not need to separately install the Java Development Kit (JDK). Android Studio will automatically install the proper JDK for you.
+
+Once you've installed the core requirements, as well as an Android SDK with Android Studio, you'll be able to create both Android applications and PWAs.
+
+Android Studio
+Android Studio is Google's IDE for creating native Android applications. You can install Android Studio by going to the Android Studio download page. Capacitor 8 requires a minimum of Android Studio 2025.2.1.
+
+Android SDK
+Once Android Studio has been installed, you need to install an Android SDK package.
+
+Developing Android apps requires some Android SDK packages to be installed. Make sure to install the Android SDK Tools, and a version of the Android SDK Platforms for API 24 or greater.
+
+In Android Studio, open Tools -> SDK Manager from the menu and install the platform versions you'd like to test with in the SDK Platforms tab:
+
+SDK Platforms
+
+To get started, you only need to install one API version. In the above image, the SDKs for Android 9 (API 28) and Android 10 (API 29) are installed. The latest stable version is Android 16 (API 36).
+
+Installing Capacitor
+You can create a new Capacitor application or add Capacitor to your existing web project. This can be done via CLI or using the community-maintained VS Code extension.
+
+Remember to make sure your environment is set up for the platforms you will be building for.
+
+Create a new Capacitor app
+The @capacitor/create-app package can be used to quickly create a Capacitor application. You can run the following command in an empty directory to scaffold a new Capacitor application.
+
+npm init @capacitor/app@latest
+
+Add Capacitor to your web app
+Capacitor was designed to drop into any modern JavaScript web app. However, your project needs to have the following three requirements in order to use Capacitor with your existing application:
+
+A package.json file
+A separate directory for built web assets such as dist or www
+An index.html file at the root of your web assets directory
+info
+Your index.html file must have a <head> tag in order to properly inject Capacitor. If you do not have a <head> in your Html, Capacitor plugins will not work.
+
+Install Capacitor
+In the root of your app, install Capacitor's main npm dependencies: the core JavaScript runtime and the command line interface (CLI).
+
+npm i @capacitor/core
+npm i -D @capacitor/cli
+
+Initialize your Capacitor config
+Then, initialize Capacitor using the CLI questionnaire:
+
+npx cap init
+
+The CLI will ask you a few questions, starting with your app name, and the package ID you would like to use for your app. It will create the capacitor-config file with these configuration details, including the expected output directory for the build process of your bundler (e.g. www for Angular, build for React, public for Vue, etc.).
+
+info
+You can customize the folder used by Capacitor by modifying the webDir variable in your Capacitor Config file that is created during npx cap init. Please note that Capacitor will try to detect the default for your web-project by checking the framework you are using. Nevertheless, it is a good idea to cross-check this configuration variable when having issues syncing your first build.
+
+Create your Android and iOS projects
+After the Capacitor core runtime is installed, you can install the Android and iOS platforms.
+
+npm i @capacitor/android @capacitor/ios
+
+Once the platforms have been added to your package.json, you can run the following commands to create your Android and iOS projects for your native application.
+
+npx cap add android
+npx cap add ios
+
+Sync your web code to your native project
+Once you've created your native projects, you can sync your web application to your native project by running the following command.
+
+npx cap sync
+
+npx cap sync will copy your built web bundle expected to be found in webDir of the Capacitor Config file to your native project and install the native project's dependencies.
+
+Syncing your web code to your Capacitor project
+Once your web code has been built for distribution, you will need to push your web code to the web native Capacitor application. To do this, you can use the Capacitor CLI to "sync" your web code and install/update the required native dependencies.
+
+To sync your project, run:
+
+npx cap sync
+
+Running npx cap sync will copy over your already built web bundle to both your Android and iOS projects as well as update the native dependencies that Capacitor uses.
+
+You can read our docs on sync and more on the Capacitor CLI reference documentation.
+
+info
+Did you get an error about "not being able to find the web assets directory?" Update your Capacitor configuration file to use the proper webDir.
+
+Testing your Capacitor app
+Once you've synced over your web bundle to your native project, it is time to test your application on a mobile device. There are a few different ways to do this, but the easiest way is to use the built in Capacitor CLI commands.
+
+To run a debug build of your Capacitor app on an iOS device, you can run:
+
+npx cap run ios
+
+Similarly, to run a debug build of your Capacitor app on an Android device, you can run:
+
+npx cap run android
+
+Once you've iterated and tested your application, it is time to compile the final binary to distribute to other mobile devices.
+
+info
+You can also run your app on iOS via Xcode or run your app on Android via Android Studio as well. Both options are valid for development. Go ahead and try both to see which option you prefer!
+
+Open your Native IDE
+If you'd like more control over your native project you can quickly open the native IDEs using the Capacitor CLI.
+
+To open the iOS Capacitor .xcworkspace project in Xcode, you can run:
+
+npx cap open ios
+
+Similarly, to open the Android Capacitor project in Android Studio, you can run:
+
+npx cap open android
+
+Opening the native project can give you full control over the native runtime of your application. You can create plugins, add custom native code, or compile your application for releasing.
+
+Compiling your native binary
+After sync, you are encouraged to open your target platform's IDE: Xcode for iOS or Android Studio for Android, for compiling your native app.
+
+Alternatively, to compile your app in a terminal or in CI environments, you can use the cap build command to build the native project, outputting a signed AAB, APK or IPA file ready for distribution to a device or end users.
+
+npx cap build android
+
+We also suggest using tools such as Fastlane or a cloud build tool like Appflow to automate these processes for you. While every application is different, we have an example of a general release process for Capacitor projects. Go and read our publishing guides for iOS and Android for more info on how to deploy to the Apple App Store or the Google Play Store.
+
+Updating Capacitor
+Updating your Capacitor runtime is as straightforward as running npm install.
+
+npm i @capacitor/core @capacitor/ios @capacitor/android
+npm i -D @capacitor/cli
+
+When updating Capacitor, you want to make sure your Core, Android, and iOS libraries are all the same version. Capacitor Core, Android, and iOS releases are all uploaded simultaneously, meaning that if you install all of the libraries at the same time, you'll be fine!
+
+info
+You can subscribe to the Capacitor repo to be notified of new releases. At the top of the repository index, click Watch -> Releases only.
+
+Configuring Your App
+Most of Capacitor is configured per-platform; meaning that you will make most configuration changes in the native project using native tooling.
+
+Native Project Management
+Configuring a Capacitor project is no different from configuring any iOS or Android project. Existing native developers can easily work alongside web developers; with each side using the tools and SDKs they know best. While mobile application is a bit different than web development, we believe web developers can handle all the required native configuration on their own, and the Capacitor team provides documentation on things like how to deploy to the Apple App Stores or the Google Play Store to help fill in knowledge gaps.
+
+Capacitor Configuration File
+Capacitor specific configuration is handled in the Capacitor Configuration File. These generally don't modify native functionality, but control Capacitor's tooling. This config file includes things such as, setting the web directory to copy on npx cap sync, specifying the Android or iOS project folder, or setting the App ID/Name in your native project.
+
+Native Configuration
+iOS and Android each have configuration guides walking through making common changes to their behavior:
+
+Capacitor's JavaScript API
+Capacitor has several JavaScript functions available to ensure apps run successfully across multiple platforms with the same codebase.
+
+The Global Capacitor object
+You can import the global Capacitor object with the following code:
+
+import { Capacitor } from '@capacitor/core';
+
+The Capacitor object has several functions that help with the most common WebView to Native problems you may face when developing a Capacitor app.
+
+Capacitor.convertFileSrc
+convertFileSrc: (filePath: string) => string;
+
+Converts a device filepath into a Web View-friendly path.
+
+Capacitor apps are served on a different protocol than device files. To avoid difficulties between these protocols, paths to device files must be rewritten. For example, on Android, file:///path/to/device/file must be rewritten as http://localhost/_capacitor_file_/path/to/device/file before being used in the Web View.
+
+// file:///path/to/device/photo.jpg
+const rawPhotoUri = await Filesystem.writeFile({
+  path: "myFile.jpg",
+  data: base64Data,
+  directory: FilesystemDirectory.Data
+});
+
+// http://localhost/path/to/device/photo.jpg
+const fixedPhotoUri = Capacitor.convertFileSrc(rawPhotoUri.uri),
+
+Capacitor.getPlatform
+getPlatform: () => 'web' | 'ios' | 'android';
+
+Get the name of the Platform the app is currently running on. This will return a value of "web", "ios", or "android" depending on the device the app is running on.
+
+if (Capacitor.getPlatform() === 'ios') {
+  console.log('iOS!');
+} else if (Capacitor.getPlatform() === 'android') {
+  console.log('Android!');
+} else {
+  console.log('Web!');
+}
+
+Capacitor.isNativePlatform
+isNativePlatform: () => boolean;
+
+Check whether the currently running platform is native. This function returns a value of true if the app is running as a native, installed Capacitor app, or false if it is served via a browser or installed as a PWA.
+
+if (Capacitor.isNativePlatform()) {
+  console.log("I'm a native app!");
+} else {
+  console.log("I'm a PWA or Web app!");
+}
+
+Capacitor.isPluginAvailable
+isPluginAvailable: (name: string) => boolean;
+
+Check if a plugin is available on the currently running platform. The plugin name is used in the plugin registry, which means it also works with custom plugins.
+
+const isAvailable = Capacitor.isPluginAvailable('Camera');
+
+if (!isAvailable) {
+  // Have the user upload a file instead
+} else {
+  // Otherwise, make the call:
+  const image = await Camera.getPhoto({
+    resultType: CameraResultType.Uri,
+  });
+}

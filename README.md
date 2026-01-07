@@ -1,26 +1,18 @@
-# Oblique Strategies
+# Tacit
 
-A minimalist progressive web app for creative prompts, inspired by Brian Eno and Peter Schmidt's legendary [Oblique Strategies](https://en.wikipedia.org/wiki/Oblique_Strategies) cards.
-
-## About
-
-Oblique Strategies is a set of cards created by Brian Eno and Peter Schmidt, first published in 1975. Each card contains a cryptic remark or suggestion meant to help artists (particularly musicians) break creative blocks by encouraging lateral thinking.
-
-This PWA presents these strategies in a clean, contemplative interface with smooth animations. Install it on your phone or desktop for offline access.
+A minimalist practice idea generator for musicians (especially classical musicians).
 
 ## Features
 
-- 🎯 100+ creative prompts
-- 📱 Works offline as a Progressive Web App
-- ✨ Smooth, thoughtful animations
-- 🌙 Dark, distraction-free interface
-- 📲 Installable on iOS, Android, and desktop
+- 100+ prompts
+- Fast, distraction-free interface
+- Fully local (no login, no backend)
 
 ## Getting Started
 
 ### Prerequisites
 
-- Node.js 18+ 
+- Node.js 22+ (required for Capacitor 8)
 - npm or yarn
 
 ### Installation
@@ -39,28 +31,20 @@ npm run build
 npm run preview
 ```
 
-## Install as App
+## iOS (Capacitor)
 
-### iOS
-1. Open in Safari
-2. Tap Share button
-3. Select "Add to Home Screen"
+This repo includes a Capacitor iOS wrapper (generated in `ios/`).
 
-### Android
-1. Open in Chrome
-2. Tap menu (⋮)
-3. Select "Add to Home Screen" or "Install App"
+```bash
+# Sync the latest web build into the iOS project
+npm run cap:sync:ios
 
-### Desktop (Chrome/Edge)
-1. Look for install icon in address bar
-2. Click "Install"
+# Open Xcode
+npm run cap:open:ios
+```
+
+See `docs/app-store-checklist.md` for the end-to-end TestFlight/App Store steps.
 
 ## Usage
 
-Click "new strategy" to receive a new creative prompt. The app pauses briefly to encourage reflection before revealing the next strategy.
-
-## License
-
-The Oblique Strategies concept and original cards are © Brian Eno and Peter Schmidt.
-
-This implementation is provided for personal and educational use.
+Click "new strategy" to receive a new practice idea. The app pauses briefly to encourage reflection before revealing the next one.
