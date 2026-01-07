@@ -134,7 +134,13 @@ const getRandomQuote = (currentQuote = null) => {
 
 const backgrounds = [
   '/black-paper.jpeg',
-  '/black-paper2.jpeg'
+  '/black-paper2.jpeg',
+  '/Black Simple Paper (3).jpg',
+  '/Black Simple Paper (6).jpg',
+  '/Black Simple Paper (15).jpg',
+  '/Black Simple Paper (16).jpg',
+  '/Black Paper Texture Background.jpg',
+  '/paper_texture_6.jpg'
 ];
 
 export default function App() {
@@ -166,7 +172,7 @@ export default function App() {
       setQuote(newQuote);
       setDisplayQuote(newQuote);
       setIsExiting(false);
-      setBackgroundIndex(prev => (prev + 1) % 2);
+      setBackgroundIndex(prev => (prev + 1) % backgrounds.length);
     }, thinkingTime + 500);
 
     // Allow new clicks after enter animation completes
