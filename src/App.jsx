@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useRef } from 'react';
 
 const quotes = [
   "Play it for the first person you see, and ask them for advice",
@@ -124,13 +124,9 @@ const quotes = [
   "Crescendo means piano"
 ];
 
-const getRandomQuote = (currentQuote = null) => {
-  let newQuote;
-  do {
-    newQuote = quotes[Math.floor(Math.random() * quotes.length)];
-  } while (newQuote === currentQuote && quotes.length > 1);
-  return newQuote;
-};
+// Weights for soft randomization (5:1 ratio)
+const UNSEEN_WEIGHT = 1.0;
+const SEEN_WEIGHT = 0.2;
 
 const backgrounds = [
   '/black-paper.jpeg',
@@ -144,7 +140,46 @@ const backgrounds = [
 ];
 
 export default function App() {
-  const [quote, setQuote] = useState(() => getRandomQuote());
+  // Weighted randomization: unseen quotes are 5x more likely than seen
+  const weightsRef = useRef(new Map(quotes.map(q => [q, UNSEEN_WEIGHT])));
+
+  const getNextQuote = useCallback((currentQuote) => {
+    const weights = weightsRef.current;
+
+    // Exclude current quote from candidates
+    const candidates = quotes.filter(q => q !== currentQuote);
+
+    // Weighted random selection
+    const totalWeight = candidates.reduce((sum, q) => sum + weights.get(q), 0);
+    let random = Math.random() * totalWeight;
+    let picked = candidates[0];
+
+    for (const q of candidates) {
+      random -= weights.get(q);
+      if (random <= 0) {
+        picked = q;
+        break;
+      }
+    }
+
+    // Mark as seen
+    weights.set(picked, SEEN_WEIGHT);
+
+    // Reset if all seen
+    const allSeen = quotes.every(q => weights.get(q) === SEEN_WEIGHT);
+    if (allSeen) {
+      quotes.forEach(q => weights.set(q, UNSEEN_WEIGHT));
+    }
+
+    return picked;
+  }, []);
+
+  const [quote, setQuote] = useState(() => {
+    // Pick initial quote and mark as seen
+    const initial = quotes[Math.floor(Math.random() * quotes.length)];
+    weightsRef.current.set(initial, SEEN_WEIGHT);
+    return initial;
+  });
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [isThinking, setIsThinking] = useState(false);
   const [isExiting, setIsExiting] = useState(false);
@@ -171,7 +206,7 @@ export default function App() {
 
     // Change the quote and background after exit animation completes
     setTimeout(() => {
-      const newQuote = getRandomQuote(quote);
+      const newQuote = getNextQuote(quote);
       setQuote(newQuote);
       setDisplayQuote(newQuote);
       setIsExiting(false);
